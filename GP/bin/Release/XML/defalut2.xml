@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Attribute Taxnomy Tree Configuration File.-->
+<taxonomy>
+	<property type="numerical" />
+	<tree>
+		<node range="[0-100]">
+			<node range="[0-40)">
+				<node range="[0-20)">
+					<node range="[0-10)" />
+					<node range="[10-20)" />
+				</node>
+				<node range="[20-40)">
+					<node range="[20-30)" />
+					<node range="[30-40)" />
+				</node>
+			</node>
+			<node range="[40-100]">
+				<node range="[40-60)">
+					<node range="[40-50)" />
+					<node range="[50-60)" />
+				</node>
+				<node range="[60-100]">
+					<node range="[60-70)" />
+					<node range="[70-100]" />
+				</node>
+			</node>
+		</node>
+	</tree>
+</taxonomy>

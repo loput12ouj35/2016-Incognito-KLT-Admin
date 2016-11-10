@@ -1,0 +1,54 @@
+﻿<Window x:Class="GP.XmlCategoricalWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GP"
+        mc:Ignorable="d"
+        Title="Categorical 트리 편집" Height="512" Width="768"
+        Closing="Window_Closing">
+    <Grid Background="#FFE5E5E5">
+
+        <TextBlock x:Name="textBlockTitle0C" HorizontalAlignment="Left" Margin="14,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Entry 편집" FontWeight="Bold"/>
+        <TextBlock x:Name="textBlockTitle1C" HorizontalAlignment="Left" Margin="266,10,0,0" TextWrapping="Wrap" Text="Categorical Tree 편집" VerticalAlignment="Top" FontWeight="Bold"/>
+
+        <TreeView x:Name="treeViewC" HorizontalAlignment="Left" Height="394" Margin="266,30,0,0" VerticalAlignment="Top" Width="302" SelectedItemChanged="treeView_SelectedItemChanged"/>
+
+        <Grid HorizontalAlignment="Left" Height="70" Margin="573,30,0,0" VerticalAlignment="Top" Width="168">
+            <Border BorderBrush="White" BorderThickness="1" CornerRadius="1"/>
+            <Button x:Name="buttonAddC" Content="하위 노드 추가" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="148" RenderTransformOrigin="1.287,-0.85" Click="buttonAdd_Click"/>
+            <Button x:Name="buttonDeleteC" Content="선택 노드 삭제" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top" Width="148" RenderTransformOrigin="1.287,-0.85" Click="buttonDelete_Click" IsEnabled="False"/>
+        </Grid>
+
+        <TextBlock x:Name="textBlock11C" HorizontalAlignment="Left" Margin="573,114,0,0" TextWrapping="Wrap" Text="노드 범위 편집" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Grid HorizontalAlignment="Left" Height="130" Margin="573,135,0,0" VerticalAlignment="Top" Width="168">
+            <Border BorderBrush="White" BorderThickness="1" CornerRadius="1"/>
+            <TextBox x:Name="textBoxNameC" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="148"/>
+            <TextBlock x:Name="textBlock3C" HorizontalAlignment="Left" Margin="10,43,0,0" TextWrapping="Wrap" Text="최소값" VerticalAlignment="Top" RenderTransformOrigin="-0.383,-0.688"/>
+            <TextBlock x:Name="textBlock4C" HorizontalAlignment="Left" Margin="10,70,0,0" TextWrapping="Wrap" Text="최대값" VerticalAlignment="Top" RenderTransformOrigin="-0.383,-0.688"/>
+            <TextBox x:Name="textBoxMinC" HorizontalAlignment="Left" Height="23" Margin="66,40,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="92" />
+            <TextBox x:Name="textBoxMaxC" HorizontalAlignment="Left" Height="23" Margin="66,67,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="92" />
+            <Button x:Name="buttonApplyC" Content="적용" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top" Width="148" Click="buttonApply_Click"/>
+
+        </Grid>
+
+        <TextBlock x:Name="textBlock13C" HorizontalAlignment="Left" Margin="573,343,0,0" TextWrapping="Wrap" Text="전체 데이터 정보" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Grid HorizontalAlignment="Left" Height="60" Margin="573,364,0,0" VerticalAlignment="Top" Width="168">
+            <Border BorderBrush="White" BorderThickness="1" CornerRadius="1"/>
+            <TextBlock x:Name="textBlockCountC" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="데이터 개수" VerticalAlignment="Top" RenderTransformOrigin="-0.383,-0.688"/>
+            <TextBlock x:Name="textBlockEntryNumberC" HorizontalAlignment="Left" Margin="10,30,0,0" TextWrapping="Wrap" Text="엔트리 개수" VerticalAlignment="Top" RenderTransformOrigin="-0.383,-0.688"/>
+
+
+
+        </Grid>
+        <Button x:Name="buttonAutoC" Content="자동" HorizontalAlignment="Left" Margin="666,439,0,0" VerticalAlignment="Top" Width="75" Click="buttonAuto_Click"/>
+        <TextBlock x:Name="textBlock0C" HorizontalAlignment="Left" Margin="266,441,0,0" TextWrapping="Wrap" Text="XML 파일 이름" VerticalAlignment="Top" FontWeight="Bold"/>
+        <TextBox x:Name="textBoxPathC" HorizontalAlignment="Left" Height="23" Margin="374,437,0,0" TextWrapping="NoWrap" Text="" VerticalAlignment="Top" Width="280" MaxLines="1"/>
+        <ListBox x:Name="listBoxC" HorizontalAlignment="Left" Height="394" Margin="10,30,0,0" VerticalAlignment="Top" Width="235" ItemsSource="{Binding}"/>
+        <Button x:Name="buttonTopC" Content="&lt;&lt;" HorizontalAlignment="Left" Margin="18,437,0,0" VerticalAlignment="Top" Width="48" Tag="top" Click="buttonSort_Click"/>
+        <Button x:Name="buttonBottomC" Content="&gt;&gt;" HorizontalAlignment="Left" Margin="189,437,0,0" VerticalAlignment="Top" Width="48" Tag="bot" Click="buttonSort_Click"/>
+        <Button x:Name="buttonUpC" Content="&lt;" HorizontalAlignment="Left" Margin="75,437,0,0" VerticalAlignment="Top" Width="48" Tag="up" Click="buttonSort_Click"/>
+        <Button x:Name="buttonDownC" Content="&gt;" HorizontalAlignment="Left" Margin="132,437,0,0" VerticalAlignment="Top" Width="48" Tag="down" Click="buttonSort_Click"/>
+        
+    </Grid>
+</Window>

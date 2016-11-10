@@ -1,0 +1,108 @@
+﻿<Window x:Class="GP.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GP"
+        mc:Ignorable="d"
+        Title="졸업프로젝트" Height="540" Width="1080">
+
+    <DockPanel LastChildFill="True">
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_파일">
+                <MenuItem Header="열기" Click="Open_Click" />
+                <MenuItem Header="저장" Click="Save_Click" />
+                <Separator />
+                <MenuItem Header="끝내기" Click="Exit_Click" />
+            </MenuItem>
+        </Menu>
+        <TabControl x:Name="tabControl" SelectionChanged="tabControl1_SelectionChanged" Margin="0,0,0,0">
+            <TabItem x:Name="tabAttr" Header="데이터 속성">
+                <Grid Background="#FFE5E5E5" Margin="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="470" Width="1080">
+                    <ListBox x:Name="listBox1" HorizontalAlignment="Left" Height="396" VerticalAlignment="Top" Width="196" Margin="10,31,0,0" ItemsSource="{Binding}" SelectionChanged="listBox1_SelectionChanged"/>
+                    <ListBox x:Name="listBox2" HorizontalAlignment="Left" Height="396" Margin="853,35,0,0" VerticalAlignment="Top" Width="196" ItemsSource="{Binding}"/>
+
+
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="데이터 속성 목록" VerticalAlignment="Top" FontWeight="Bold"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="227,10,0,0" TextWrapping="Wrap" Text="데이터 속성" VerticalAlignment="Top" FontWeight="Bold"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="490,10,0,0" TextWrapping="Wrap" Text="일반 속성" VerticalAlignment="Top" FontWeight="Bold"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="853,10,0,0" TextWrapping="Wrap" Text="데이터 값 및 개수" VerticalAlignment="Top" FontWeight="Bold"/>
+
+
+                    <Grid x:Name="grid0" Margin="227,35,0,0" IsEnabled="False" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <Border BorderBrush="White" BorderThickness="1" CornerRadius="1"/>
+                        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="데이터 속성 이름" VerticalAlignment="Top"/>
+                        <TextBox x:Name="textBoxName" HorizontalAlignment="Left" Height="23" Margin="10,31,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="224" TextChanged="textBoxName_TextChanged"/>
+
+                        <GroupBox x:Name="groupBox0" Header="비식별화 종류" HorizontalAlignment="Left" Margin="10,85,10,0" VerticalAlignment="Top">
+                            <Grid HorizontalAlignment="Left" Height="119" VerticalAlignment="Top" Width="213" Margin="0,0,-2,-12">
+                                <Label Content="비식별화의 종류를 선택합니다" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
+                                <RadioButton x:Name="radioButtonType0" Content="준식별자 (QI)" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Checked="radioButtonType_Checked" Tag="qi"/>
+                                <RadioButton x:Name="radioButtonType1" Content="민감정보 (SA)" HorizontalAlignment="Left" Margin="10,61,0,0" VerticalAlignment="Top" Checked="radioButtonType_Checked" Tag="sa"/>
+                                <RadioButton x:Name="radioButtonType2" Content="삭제대상 (Attr)" HorizontalAlignment="Left" Margin="10,81,0,0" VerticalAlignment="Top" Checked="radioButtonType_Checked" Tag="attr"/>
+                            </Grid>
+                        </GroupBox>
+
+                        <GroupBox x:Name="groupBox1" Header="데이터 종류" HorizontalAlignment="Left" Margin="10,252,10,10" VerticalAlignment="Top">
+                            <Grid HorizontalAlignment="Left" Height="119" VerticalAlignment="Top" Width="213" Margin="0,0,-2,-12">
+                                <Label Content="데이터의 종류를 선택합니다" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
+                                <RadioButton x:Name="radioButtonDataType0" Content="문자" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Tag="false" Checked="radioButtonDataType_Checked"/>
+                                <RadioButton x:Name="radioButtonDataType1" Content="숫자" HorizontalAlignment="Left" Margin="10,61,0,0" VerticalAlignment="Top" Tag="true" Checked="radioButtonDataType_Checked"/>
+                            </Grid>
+                        </GroupBox>
+                    </Grid>
+
+                    <Grid x:Name="grid1" HorizontalAlignment="Left" Height="392" VerticalAlignment="Top" Width="338" Margin="490,35,0,0" IsEnabled="False">
+                        <Border BorderBrush="White" BorderThickness="1" CornerRadius="1" Margin="0"/>
+                        <Grid HorizontalAlignment="Left" Height="71" VerticalAlignment="Top" Width="318" Margin="10,10,0,0">
+                            <Border BorderBrush="White" BorderThickness="1" CornerRadius="1" Margin="0"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="k-익명성 [0-99]"/>
+                            <TextBox x:Name="textBoxK" HorizontalAlignment="Left" Height="23" Margin="10,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" Text="0" PreviewTextInput="IntValidationTextBox" MaxLength="2" LostFocus="KL_LostFocus"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="115,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="l-다양성 [0-99]"/>
+                            <TextBox x:Name="textBoxL" HorizontalAlignment="Left" Height="23" Margin="115,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" Text="0" PreviewTextInput="IntValidationTextBox" MaxLength="2" LostFocus="KL_LostFocus"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="220,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="t-근접성 [0-1]"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="220,32,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="0."/>
+                            <TextBox x:Name="textBoxT" HorizontalAlignment="Left" Height="23" Margin="230,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" Text="0" PreviewTextInput="IntValidationTextBox" MaxLength="2"/>
+                        </Grid>
+
+                        <Grid HorizontalAlignment="Left" Height="183" VerticalAlignment="Top" Width="318" Margin="10,96,0,0">
+                            <Border BorderBrush="White" BorderThickness="1" CornerRadius="1" Margin="0"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="원본 파일 (입력 파일) 주소"/>
+                            <TextBox x:Name="textBoxInputFile" HorizontalAlignment="Left" Height="23" Margin="10,31,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="285" TextChanged="textBoxName_TextChanged" IsEnabled="False" MaxLines="1"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="10,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="비식별화된 데이터 파일 (출력 파일) 주소"/>
+                            <TextBox x:Name="textBoxOutputFile" HorizontalAlignment="Left" Height="23" Margin="10,86,10,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="224" TextChanged="textBoxName_TextChanged" IsEnabled="False" MaxLines="1"/>
+                            <CheckBox x:Name="checkbox0" Content="기본값" HorizontalAlignment="Left" Margin="239,90,10,0" VerticalAlignment="Top" Checked="checkbox0_Checked" Unchecked ="checkbox0_Checked"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="10,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="로그 파일 주소"/>
+                            <TextBox x:Name="textBoxLogFile" HorizontalAlignment="Left" Height="23" Margin="10,141,10,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="224" TextChanged="textBoxName_TextChanged" IsEnabled="False" MaxLines="1"/>
+                            <CheckBox x:Name="checkbox1" Content="기본값" HorizontalAlignment="Left" Margin="239,145,10,0" VerticalAlignment="Top" Checked ="checkbox0_Checked" Unchecked ="checkbox0_Checked"/>
+
+
+                        </Grid>
+
+                        <Grid HorizontalAlignment="Left" Height="70" VerticalAlignment="Top" Width="318" Margin="10,312,0,0">
+
+                            <Border BorderBrush="White" BorderThickness="1" CornerRadius="1" Margin="0"/>
+                            <Button x:Name="buttonXmlWindow" Content="편집" HorizontalAlignment="Left" Margin="233,32,0,0" VerticalAlignment="Top" Width="75" Click="buttonXmlWindow_Click" IsEnabled="False"/>
+                            <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="범위 편집" VerticalAlignment="Top"/>
+                            <TextBox x:Name="textBoxPath" HorizontalAlignment="Left" Height="23" Margin="10,31,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="213" IsEnabled="False"/>
+
+                        </Grid>
+
+                    </Grid>
+                </Grid>
+
+            </TabItem>
+
+
+
+
+            <TabItem x:Name="tabTable" Header="데이터 보기">
+                <Grid Background="#FFE5E5E5" Margin="0,0,8,0" HorizontalAlignment="Center">
+                    <DataGrid x:Name="dataGrid1" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="616" Width="1248" ItemsSource="{Binding}" IsReadOnly="True"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+
+
+</Window>

@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Attribute Taxnomy Tree Configuration File.-->
+<taxonomy>
+	<property type="numerical" />
+	<tree>
+		<node range="[28-53]">
+			<node range="[28-53]">
+				<node range="[28-53]">
+					<node range="[28-53]" />
+				</node>
+			</node>
+		</node>
+	</tree>
+</taxonomy>
