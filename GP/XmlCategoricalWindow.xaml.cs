@@ -20,8 +20,9 @@ namespace GP
     {
         private readonly DataManager dm;
         private static List<Entry> listC;
+        private readonly int countOfdata;
         private readonly int index;
-
+        private bool hasErrorRange;
         
 
         public class CategoricalTreeViewItem : TreeViewItem
@@ -93,6 +94,7 @@ namespace GP
             listC = dm.GetCategoricalList(selectedIndex);
             UpdateEntryList();
             index = selectedIndex;
+            hasErrorRange = false;
 
             int dataCount = 0;
             foreach(Entry tmp in listC)
@@ -100,6 +102,7 @@ namespace GP
                 dataCount += tmp.count;
             }
 
+            countOfdata = dataCount;
             textBlockCountC.Text = "데이터 개수 : " + dataCount;
             textBlockEntryNumberC.Text = "엔트리 개수 : " + listC.Count;
 
@@ -145,7 +148,7 @@ namespace GP
                             case "tree":
                                 if (isOkay)
                                 {
-                                    LoadNode(node, treeViewC.Items);
+                                    LoadNode(node, treeViewC.Items, null);
                                 }
                                 break;
                         }
@@ -162,7 +165,7 @@ namespace GP
 
         }
 
-        private void LoadNode(XmlNode parent, ItemCollection items)
+        private void LoadNode(XmlNode parent, ItemCollection items, CategoricalTreeViewItem parentItem)
         {
             foreach (XmlNode child in parent)
             {
@@ -178,14 +181,14 @@ namespace GP
                     int.TryParse(tmp2.Substring(0, tmpIndex), out min);
                     int.TryParse(tmp2.Substring(tmpIndex + 1), out max);
 
-                    CategoricalTreeViewItem c = new CategoricalTreeViewItem();
+                    CategoricalTreeViewItem c = new CategoricalTreeViewItem(0, 0, parentItem);
                     c.UpdateInfo(min, max, name);
 
                     items.Add(c);
 
                     if (child.HasChildNodes)
                     {
-                        LoadNode(child, c.Items);
+                        LoadNode(child, c.Items, c);
                     }
                 }
             }
@@ -255,6 +258,7 @@ namespace GP
 
             parent.Items.Add(new CategoricalTreeViewItem(parent.min, parent.max, parent, "새로운 범위") { IsExpanded = true });
             parent.IsExpanded = true;   //확장
+            checkRange();       //확장 후에 범위 에러 체크
         }
 
 
@@ -267,6 +271,7 @@ namespace GP
 
                 parent.Items.Remove(treeViewC.SelectedItem);
                 parent.IsSelected = true;  //삭제 후에 부모 노드 선택
+                checkRange();           //삭제 후에 범위 에러 체크
             }
 
             else
@@ -275,7 +280,82 @@ namespace GP
             }
         }
 
-        //min, max 값 적용, 이름 변경; todo: 하위노드 값 비교
+        private void checkRange()
+        {
+            hasErrorRange = checkRangeofChild((treeViewC.Items[0] as CategoricalTreeViewItem).Items, (treeViewC.Items[0] as CategoricalTreeViewItem).min, (treeViewC.Items[0] as CategoricalTreeViewItem).max)
+                            || checkRangeofRoot();
+        }
+
+        //루트의 범위값 체크
+        private bool checkRangeofRoot()
+        {
+            bool tmp = (treeViewC.Items[0] as CategoricalTreeViewItem).count != countOfdata;
+            (treeViewC.Items[0] as CategoricalTreeViewItem).Foreground = tmp ? Brushes.Green : Brushes.Black;
+
+            return tmp;
+        }
+
+        //자식의 범위값 체크
+        private bool checkRangeofChild(ItemCollection item, float min, float max)
+        {
+            bool isError = false;
+            int index = 0;
+            float bound = min;
+
+            //빨간색 해지 및 개수 계산
+            foreach (CategoricalTreeViewItem child in item)
+            {
+                child.Foreground = Brushes.Black;
+            }
+
+
+            //에러 체크 시작
+            foreach (CategoricalTreeViewItem child in item)
+            {
+                //처음 부분
+                if (index == 0)
+                {
+                    if (child.min != min)
+                    {
+                        isError = true;
+                        child.Foreground = Brushes.Red;     //처음 값이 최소값이 아님
+                    }
+                }
+
+                //가운데 부분
+                else if (child.min != bound + 1)
+                {
+                    isError = true;
+                    child.Foreground = Brushes.Red;       //바운드를 벗어남, 빠지는 부분이 있음
+                }
+
+                //마지막 부분만 추가 체크
+                if (index == item.Count - 1 && child.max != max)
+                {
+                    isError = true;
+                    child.Foreground = Brushes.Red;     //마지막 값이 최대값이 아님
+                }
+
+                //개수가 0개라면 의미가 없음
+                if (child.count == 0)
+                {
+                    isError = true;
+                    child.Foreground = Brushes.Blue;
+                }
+
+                //recursive
+                else if (child.Items.Count > 0)
+                    checkRangeofChild(child.Items, child.min, child.max);
+
+
+                bound = child.max;
+                index++;
+            }
+
+            return isError;
+        }
+
+        //min, max 값 적용, 이름 변경
         private void buttonApply_Click(object sender, RoutedEventArgs e)
         {
             int min, max;
@@ -293,10 +373,22 @@ namespace GP
                     MessageBox.Show("상위 노드의 범위를 벗어납니다.");
                 }
 
+                else if (min < 0)
+                {
+                    MessageBox.Show("인덱스 값은 0 이상이어야 합니다.");
+                }
+
+                else if (max >= listC.Count)
+                {
+                    MessageBox.Show("인덱스 값은 엔트리 개수 이하이어야 합니다.");
+                }
+
+
                 else
                 {
                     //적용
                     (treeViewC.SelectedItem as CategoricalTreeViewItem).UpdateInfo(min, max, textBoxNameC.Text);
+                    checkRange();       //적용 후에 범위 에러 체크
                 }
             }
             else
@@ -315,6 +407,10 @@ namespace GP
         //종료 시에 자동 저장
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            checkRange();       //종료 전 체크
+            if (hasErrorRange)
+                MessageBox.Show("빠지거나 중복된 범위가 있습니다.", "에러");
+
             Save();
         }
 

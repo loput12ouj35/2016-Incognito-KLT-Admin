@@ -18,3 +18,23 @@ C:\Users\loput\OneDrive\문서\visual studio 2015\Projects\GP\GP\obj\Release\Xml
 C:\Users\loput\OneDrive\문서\visual studio 2015\Projects\GP\GP\obj\Release\XmlCategoricalWindow.baml
 C:\Users\loput\OneDrive\문서\visual studio 2015\Projects\GP\GP\obj\Release\Preset.g.cs
 C:\Users\loput\OneDrive\문서\visual studio 2015\Projects\GP\GP\obj\Release\Preset.baml
+C:\Users\loput\OneDrive\문서\GitHub\GraduationProject\GP\bin\Release\GP.exe.config
+C:\Users\loput\OneDrive\문서\GitHub\GraduationProject\GP\obj\Release\GP.exe
+C:\Users\loput\OneDrive\문서\GitHub\GraduationProject\GP\obj\Release\GP.pdb
+C:\Users\loput\OneDrive\문서\GitHub\GraduationProject\GP\bin\Release\GP.exe
+C:\Users\loput\OneDrive\문서\GitHub\GraduationProject\GP\bin\Release\GP.pdb
+C:\Users\loput\OneDrive\문서\GitHub\GraduationProject\GP\obj\Release\GP.csprojResolveAssemblyReference.cache
+C:\Users\loput\OneDrive\문서\GitHub\GraduationProject\GP\obj\Release\MainWindow.g.cs
+C:\Users\loput\OneDrive\문서\GitHub\GraduationProject\GP\obj\Release\Preset.g.cs
+C:\Users\loput\OneDrive\문서\GitHub\GraduationProject\GP\obj\Release\XmlCategoricalWindow.g.cs
+C:\Users\loput\OneDrive\문서\GitHub\GraduationProject\GP\obj\Release\XmlWindow.g.cs
+C:\Users\loput\OneDrive\문서\GitHub\GraduationProject\GP\obj\Release\App.g.cs
+C:\Users\loput\OneDrive\문서\GitHub\GraduationProject\GP\obj\Release\GP_MarkupCompile.cache
+C:\Users\loput\OneDrive\문서\GitHub\GraduationProject\GP\obj\Release\GP_MarkupCompile.lref
+C:\Users\loput\OneDrive\문서\GitHub\GraduationProject\GP\obj\Release\MainWindow.baml
+C:\Users\loput\OneDrive\문서\GitHub\GraduationProject\GP\obj\Release\Preset.baml
+C:\Users\loput\OneDrive\문서\GitHub\GraduationProject\GP\obj\Release\XmlCategoricalWindow.baml
+C:\Users\loput\OneDrive\문서\GitHub\GraduationProject\GP\obj\Release\XmlWindow.baml
+C:\Users\loput\OneDrive\문서\GitHub\GraduationProject\GP\obj\Release\GP.g.resources
+C:\Users\loput\OneDrive\문서\GitHub\GraduationProject\GP\obj\Release\GP.Properties.Resources.resources
+C:\Users\loput\OneDrive\문서\GitHub\GraduationProject\GP\obj\Release\GP.csproj.GenerateResource.Cache

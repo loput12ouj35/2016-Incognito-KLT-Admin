@@ -21,6 +21,7 @@ namespace GP
         private readonly DataManager dm;
         private static List<float> list;
         private readonly int index;
+        private bool hasErrorRange;
 
         public class NumericTreeViewItem : TreeViewItem
         {
@@ -71,6 +72,7 @@ namespace GP
             dm = DataManager.GetDataManager();
             list = dm.GetNumericList(selectedIndex);
             index = selectedIndex;
+            hasErrorRange = false;
 
             textBlockCount.Text = "데이터 개수 : " + list.Count;
             textBlockMin.Text = "최소값 : " + list.Min();
@@ -115,7 +117,7 @@ namespace GP
                             case "tree":
                                 if (isOkay)
                                 {
-                                    LoadNode(node, treeView.Items);
+                                    LoadNode(node, treeView.Items, null);
                                 }
                                 break;
                         }
@@ -131,7 +133,7 @@ namespace GP
             }
         }
         
-        private void LoadNode(XmlNode parent, ItemCollection items)
+        private void LoadNode(XmlNode parent, ItemCollection items, NumericTreeViewItem parentItem)
         {
             foreach(XmlNode child in parent)
             {
@@ -149,14 +151,14 @@ namespace GP
                     float.TryParse(tmp2.Substring(0, tmpIndex), out min);
                     float.TryParse(tmp2.Substring(tmpIndex + 1), out max);
 
-                    NumericTreeViewItem c = new NumericTreeViewItem();
+                    NumericTreeViewItem c = new NumericTreeViewItem(0, 0, parentItem);
                     c.UpdateInfo(min, max, withMin, withMax);
 
                     items.Add(c);
 
                     if (child.HasChildNodes)
                     {
-                        LoadNode(child, c.Items);
+                        LoadNode(child, c.Items, c);
                     }
                 }
             }
@@ -179,7 +181,7 @@ namespace GP
                     switch (node.Name)
                     {
                         case "tree":
-                            LoadNode(node, treeView.Items);
+                            LoadNode(node, treeView.Items, null);
                             break;
                     }
                 }
@@ -215,6 +217,7 @@ namespace GP
 
             parent.Items.Add(new NumericTreeViewItem(parent.min, parent.max, parent) { IsExpanded = true });
             parent.IsExpanded = true;   //확장
+            checkRange();       //확장 후에 범위 에러 체크
         }
 
 
@@ -227,6 +230,7 @@ namespace GP
 
                 parent.Items.Remove(treeView.SelectedItem);
                 parent.IsSelected = true;  //삭제 후에 부모 노드 선택
+                checkRange();       //삭제 후에 범위 에러 체크
             }
 
             else
@@ -235,13 +239,98 @@ namespace GP
             }
         }
 
-        //범위값 체크
-        private bool checkRange(NumericTreeViewItem item)
+        //전체 트리 범위값 체크
+        private void checkRange()
         {
-
+            hasErrorRange = checkRangeofChild((treeView.Items[0] as NumericTreeViewItem).Items, (treeView.Items[0] as NumericTreeViewItem).min, (treeView.Items[0] as NumericTreeViewItem).max)
+                            || checkRangeofRoot();
         }
 
-        //min, max 값 적용; todo: 하위노드 비교
+        //루트의 범위값 체크
+        private bool checkRangeofRoot()
+        {
+            bool tmp = (treeView.Items[0] as NumericTreeViewItem).count != list.Count;
+            (treeView.Items[0] as NumericTreeViewItem).Foreground = tmp? Brushes.Green : Brushes.Black;
+
+            return tmp;
+        }
+
+        //자식의 범위값 체크;
+        private bool checkRangeofChild(ItemCollection item, float min, float max)
+        {
+            bool isError = false;       //결과
+            int index = 0;      //인덱스
+            float bound = min;      //경계 값을 저장
+            bool includeBound = false;  //경계 값을 포함하는 여부를 저장
+
+            //빨간색 해지 및 개수 계산
+            foreach(NumericTreeViewItem child in item)
+            {
+                child.Foreground = Brushes.Black;
+            }
+
+
+            //에러 체크 시작
+            foreach(NumericTreeViewItem child in item)
+            {
+                //처음 부분
+                if (index == 0)
+                {
+                    if (child.min != min)
+                    {
+                        isError = true;
+                        child.Foreground = Brushes.Red;     //처음 값이 최소값이 아님
+                    }
+                    else if ((child.Parent != null) && (child.includeMin != (child.Parent as NumericTreeViewItem).includeMin))
+                    {
+                        isError = true;
+                        child.Foreground = Brushes.Red;     //최소값의 포함 여부가 부모와 다름
+                    }
+                }
+
+                //가운데 부분과 마지막 부분
+                else if ((child.min != bound) || (child.includeMin == includeBound))
+                {
+                    isError = true;
+                    child.Foreground = Brushes.Red;       //바운드를 벗어남, 빠지는 부분이 있음
+                }
+
+                //마지막 부분만 추가 체크
+                if (index == item.Count - 1)
+                {
+                    if (child.max != max)
+                    {
+                        isError = true;
+                        child.Foreground = Brushes.Red;     //마지막 값이 최대값이 아님
+                    }
+                    else if ((child.Parent != null) && (child.includeMax != (child.Parent as NumericTreeViewItem).includeMax))
+                    {
+                        isError = true;
+                        child.Foreground = Brushes.Red;     //최대값 포함 여부가 부모와 다름
+                    }
+                }
+
+                //개수가 0개라면 의미가 없음
+                if (child.count == 0)
+                {
+                    isError = true;
+                    child.Foreground = Brushes.Blue;
+                }
+
+                //recursive
+                else if (child.Items.Count > 0)
+                    checkRangeofChild(child.Items, child.min, child.max);
+
+
+                bound = child.max;
+                includeBound = child.includeMax;
+                index++;
+            }
+
+            return isError;
+        }
+
+        //min, max 값 적용
         private void buttonApply_Click(object sender, RoutedEventArgs e)
         {
             float min, max;
@@ -263,6 +352,7 @@ namespace GP
                 {
                     //적용
                     (treeView.SelectedItem as NumericTreeViewItem).UpdateInfo(min, max, (bool) checkBoxMin.IsChecked, (bool) checkBoxMax.IsChecked);
+                    checkRange();   //적용 후에 범위 에러 체크
                 }
             }
             else
@@ -296,6 +386,9 @@ namespace GP
         //종료 시에 자동 저장
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            if (hasErrorRange)
+                MessageBox.Show("빠지거나 중복된 범위가 있습니다.", "에러");
+
             Save();
         }
 
