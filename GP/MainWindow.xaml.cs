@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -71,12 +72,12 @@ namespace GP
             }
         }
 
-        private void Save_Click(object sender, RoutedEventArgs e)
+        private void QuickSave_Click(object sender, RoutedEventArgs e)
         {
-            SaveCfg();
+            SaveConfig("config.xml");
         }
 
-        private void SaveCfg()
+        private void Save_Click(object sender, RoutedEventArgs e)
         {
             SaveFileDialog dialog = new SaveFileDialog();
 
@@ -92,15 +93,27 @@ namespace GP
 
             if(dialog.FileName != "")
             {
-                int k, l, t;
-                k = int.TryParse(textBoxK.Text, out k) ? k : 0;
-                l = int.TryParse(textBoxL.Text, out l) ? l : 0;
-                t = int.TryParse(textBoxT.Text, out t) ? t : 0;
-                
-                //config 파일 저장
-                dm.SaveConfigXML(dialog.FileName,
-                new Config(k, l, (float)t / 100, textBoxInputFile.Text, textBoxOutputFile.Text, textBoxLogFile.Text));
+                SaveConfig(dialog.FileName);
             }
+        }
+
+        private void SaveConfig(string fileName)
+        {
+            int k, l, t;
+            k = int.TryParse(textBoxK.Text, out k) ? k : 0;
+            l = int.TryParse(textBoxL.Text, out l) ? l : 0;
+            t = int.TryParse(textBoxT.Text, out t) ? t : 0;
+
+            //config 파일 저장
+            dm.SaveConfigXML(fileName,
+            new Config(k, l, (float)t / 100, textBoxInputFile.Text, textBoxOutputFile.Text, textBoxLogFile.Text));
+        }
+
+        private void Execute_Click(object sender, RoutedEventArgs e)
+        {
+            Process p = new Process();
+            p.StartInfo.FileName = "Inco_cpu.exe";
+            p.Start();
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)

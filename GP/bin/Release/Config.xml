@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Anonymization Configuration File.-->
+<configuration>
+	<setting k="0" l="0" t="0" algo="incognito" />
+	<input filename="./modifiedAdultData.txt" />
+	<output filename="./modifiedAdultData.txt_output.txt" />
+	<log filename="./modifiedAdultData.txt_log.txt" />
+	<column>
+		<attr name="1열" index="0" type="attr" />
+		<attr name="2열" index="1" type="attr" />
+		<attr name="3열" index="2" type="attr" />
+		<attr name="4열" index="3" type="attr" />
+		<attr name="5열" index="4" type="attr" />
+		<attr name="6열" index="5" type="attr" />
+		<attr name="7열" index="6" type="attr" />
+		<attr name="8열" index="7" type="attr" />
+		<attr name="9열" index="8" type="attr" />
+		<attr name="10열" index="9" type="attr" />
+		<attr name="11열" index="10" type="attr" />
+		<attr name="12열" index="11" type="attr" />
+		<attr name="13열" index="12" type="attr" />
+		<attr name="14열" index="13" type="attr" />
+		<attr name="15열" index="14" type="attr" />
+	</column>
+</configuration>

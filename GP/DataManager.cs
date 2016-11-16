@@ -304,7 +304,7 @@ namespace GP
 
             float output;
 
-            return extractedList.Select(o => float.TryParse(o, out output) ? output : float.MaxValue).ToList();
+            return extractedList.Select(o => float.TryParse(o, out output) ? output : float.MaxValue).ToList().OrderBy(o => o).ToList();
         }
 
         public List<Entry> GetCategoricalList(int index, bool hideIndex = false)
@@ -331,7 +331,9 @@ namespace GP
         */
         public void UpdateAttrName(int index, string name)
         {
-            db.Columns[index].ColumnName = name;
+            string tmp = db.Columns.Contains(name) ? "_" : "";      //중복 시 에러를 막기 위해 뒤에 _ 붙임
+
+            db.Columns[index].ColumnName = name + tmp;
             attrList[index].name = name;
         }
 

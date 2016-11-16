@@ -9,8 +9,7 @@
 	</map>
 	<tree>
 		<node name="전체 데이터 범위" range="[0-2]">
-			<node name="새로운 범위" range="[0-0]" />
-			<node name="새로운 범위" range="[1-1]" />
+			<node name="새로운 범위" range="[0-1]" />
 			<node name="새로운 범위" range="[2-2]" />
 		</node>
 	</tree>

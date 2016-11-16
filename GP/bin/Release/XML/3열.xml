@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Attribute Taxnomy Tree Configuration File.-->
+<taxonomy>
+	<property type="numerical" />
+	<tree>
+		<node range="[13769-1484705]">
+			<node range="[13769-178421)">
+				<node range="[13769-117627)">
+					<node range="[13769-80058)">
+						<node range="[13769-46514)" />
+						<node range="[46514-80058)" />
+					</node>
+					<node range="[80058-117627)">
+						<node range="[80058-103110)" />
+						<node range="[103110-117627)" />
+					</node>
+				</node>
+				<node range="[117627-178421)">
+					<node range="[117627-152035)">
+						<node range="[117627-134727)" />
+						<node range="[134727-152035)" />
+					</node>
+					<node range="[152035-178421)">
+						<node range="[152035-167147)" />
+						<node range="[167147-178421)" />
+					</node>
+				</node>
+			</node>
+			<node range="[178421-1484705]">
+				<node range="[178421-237624)">
+					<node range="[178421-201122)">
+						<node range="[178421-189843)" />
+						<node range="[189843-201122)" />
+					</node>
+					<node range="[201122-237624)">
+						<node range="[201122-216129)" />
+						<node range="[216129-237624)" />
+					</node>
+				</node>
+				<node range="[237624-1484705]">
+					<node range="[237624-308205)">
+						<node range="[237624-267556)" />
+						<node range="[267556-308205)" />
+					</node>
+					<node range="[308205-1484705]">
+						<node range="[308205-362747)" />
+						<node range="[362747-1484705]" />
+					</node>
+				</node>
+			</node>
+		</node>
+	</tree>
+</taxonomy>

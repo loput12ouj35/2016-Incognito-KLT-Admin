@@ -3,9 +3,51 @@
 <taxonomy>
 	<property type="numerical" />
 	<tree>
-		<node range="[28-53]">
-			<node range="[28-53]" />
-			<node range="[28-53]" />
+		<node range="[17-90]">
+			<node range="[17-37)">
+				<node range="[17-28)">
+					<node range="[17-23)">
+						<node range="[17-20)" />
+						<node range="[20-23)" />
+					</node>
+					<node range="[23-28)">
+						<node range="[23-25)" />
+						<node range="[25-28)" />
+					</node>
+				</node>
+				<node range="[28-37)">
+					<node range="[28-33)">
+						<node range="[28-30)" />
+						<node range="[30-33)" />
+					</node>
+					<node range="[33-37)">
+						<node range="[33-35)" />
+						<node range="[35-37)" />
+					</node>
+				</node>
+			</node>
+			<node range="[37-90]">
+				<node range="[37-47)">
+					<node range="[37-42)">
+						<node range="[37-39)" />
+						<node range="[39-42)" />
+					</node>
+					<node range="[42-47)">
+						<node range="[42-45)" />
+						<node range="[45-47)" />
+					</node>
+				</node>
+				<node range="[47-90]">
+					<node range="[47-55)">
+						<node range="[47-51)" />
+						<node range="[51-55)" />
+					</node>
+					<node range="[55-90]">
+						<node range="[55-60)" />
+						<node range="[60-90]" />
+					</node>
+				</node>
+			</node>
 		</node>
 	</tree>
 </taxonomy>

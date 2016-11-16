@@ -365,7 +365,7 @@ namespace GP
         //자동 버튼 클릭
         private void buttonAuto_Click(object sender, RoutedEventArgs e)
         {
-            textBoxPath.Text = dm.GetAttrList()[index].name + ".xml";
+            autoMakeTree();
         }
 
         //프리셋 버튼 클릭
@@ -399,5 +399,49 @@ namespace GP
             (dm.GetAttrList()[index] as Attr).path = textBoxPath.Text;
         }
 
+        //자동화 초기화 
+        private void autoMakeTree()
+        {
+            textBoxPath.Text = dm.GetAttrList()[index].name + ".xml";       //이름 변경
+
+            //treeview 초기화
+            treeView.Items.Add(new NumericTreeViewItem(list.Min(), list.Max(), null));
+            treeView.Items.RemoveAt(0);
+
+            binaryMethod(3);
+
+        }
+
+        //절반 나누기
+        private void binaryMethod(int height)
+        {
+            binaryAdd(height, treeView.Items[0] as NumericTreeViewItem, 0, list.Count - 1);
+            checkRange();
+        }
+
+        //절반 나누기 recursive
+        private void binaryAdd(int height, NumericTreeViewItem root, int firstIndex, int lastIndex)
+        {
+            root.Items.Add(new NumericTreeViewItem(0, 0, root) { IsExpanded = true });
+            root.Items.Add(new NumericTreeViewItem(0, 0, root) { IsExpanded = true });
+
+            (root.Items[0] as NumericTreeViewItem).UpdateInfo(root.min, list[(firstIndex + lastIndex) / 2], root.includeMin, false);
+            (root.Items[1] as NumericTreeViewItem).UpdateInfo(list[(firstIndex + lastIndex) / 2], root.max, true, root.includeMax);
+            root.IsExpanded = true;   //확장
+
+            //범위 내 값이 0개인 값이 존재한다면 하위 노드 필요 없음
+            if((root.Items[0] as NumericTreeViewItem).count == 0)
+            {
+                root.Items.RemoveAt(1);
+                root.Items.RemoveAt(0);
+            }
+            
+            else if(height > 0)
+            {
+                binaryAdd(height - 1, root.Items[0] as NumericTreeViewItem, firstIndex, (firstIndex + lastIndex) / 2);
+                binaryAdd(height - 1, root.Items[1] as NumericTreeViewItem, (firstIndex + lastIndex) / 2, lastIndex);
+            }
+            
+        }
     }
 }
