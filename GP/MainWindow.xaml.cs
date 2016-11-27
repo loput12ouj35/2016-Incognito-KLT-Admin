@@ -229,6 +229,8 @@ namespace GP
                 textBoxL.Text = k + "";
             }
 
+            dm.k = k;       //k와 l값 저장
+            dm.l = l;
         }
 
 

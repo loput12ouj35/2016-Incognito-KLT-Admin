@@ -58,10 +58,10 @@
                         <Border BorderBrush="White" BorderThickness="1" CornerRadius="1" Margin="0"/>
                         <Grid HorizontalAlignment="Left" Height="71" VerticalAlignment="Top" Width="318" Margin="10,10,0,0">
                             <Border BorderBrush="White" BorderThickness="1" CornerRadius="1" Margin="0"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="k-익명성 [0-99]"/>
-                            <TextBox x:Name="textBoxK" HorizontalAlignment="Left" Height="23" Margin="10,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" Text="0" PreviewTextInput="IntValidationTextBox" MaxLength="2" LostFocus="KL_LostFocus"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="115,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="l-다양성 [0-99]"/>
-                            <TextBox x:Name="textBoxL" HorizontalAlignment="Left" Height="23" Margin="115,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" Text="0" PreviewTextInput="IntValidationTextBox" MaxLength="2" LostFocus="KL_LostFocus"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="k-익명성 [0-999]"/>
+                            <TextBox x:Name="textBoxK" HorizontalAlignment="Left" Height="23" Margin="10,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" Text="2" PreviewTextInput="IntValidationTextBox" MaxLength="3" LostFocus="KL_LostFocus"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="115,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="l-다양성 [0-999]"/>
+                            <TextBox x:Name="textBoxL" HorizontalAlignment="Left" Height="23" Margin="115,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" Text="2" PreviewTextInput="IntValidationTextBox" MaxLength="3" LostFocus="KL_LostFocus"/>
                             <TextBlock HorizontalAlignment="Left" Margin="220,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="t-근접성 [0-1]"/>
                             <TextBlock HorizontalAlignment="Left" Margin="220,32,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="0."/>
                             <TextBox x:Name="textBoxT" HorizontalAlignment="Left" Height="23" Margin="230,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" Text="0" PreviewTextInput="IntValidationTextBox" MaxLength="2"/>

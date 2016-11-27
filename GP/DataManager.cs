@@ -19,6 +19,9 @@ namespace GP
         private readonly List<Attr> attrList;    //속성을 저장하는 리스트
         private string presetPath = "";      //프리셋 파일 주소
 
+        public int k = 2;
+        public int l = 2;
+
 
         private DataManager()
         {

@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <!-- Anonymization Configuration File.-->
 <configuration>
-	<setting k="1" l="2" t="0.03" algo="incognito" />
+	<setting k="999" l="2" t="0" algo="incognito" />
 	<input filename="./modifiedAdultData.txt" />
 	<output filename="./modifiedAdultData.txt_output.txt" />
 	<log filename="./modifiedAdultData.txt_log.txt" />
 	<column>
-		<attr name="나이" index="0" type="qi" path="./XML/defalut0.xml" />
-		<attr name="2열" index="1" type="sa" path="./XML/defalut1.xml" />
+		<attr name="1열" index="0" type="sa" path="./XML/1열.xml" />
+		<attr name="2열" index="1" type="attr" />
 		<attr name="3열" index="2" type="attr" />
 		<attr name="4열" index="3" type="attr" />
 		<attr name="5열" index="4" type="attr" />
