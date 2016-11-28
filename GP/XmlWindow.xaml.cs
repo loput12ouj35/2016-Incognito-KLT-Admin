@@ -412,6 +412,15 @@ namespace GP
 
         }
 
+        //데이터 분포 고려
+        private void analzeData()
+        {
+            int minDigit = (int) Math.Floor(Math.Log10(list.Min())) + 1;
+            int maxDigit = (int) Math.Floor(Math.Log10(list.Max())) + 1;
+
+
+        }
+
         //절반 나누기
         private void binaryMethod(int height)
         {
@@ -434,11 +443,15 @@ namespace GP
             bool caseA = (dm.GetAttrList()[index] as Attr).type == Attr.attrType.qi && (root.Items[0] as NumericTreeViewItem).count < dm.k;
             bool caseB = (dm.GetAttrList()[index] as Attr).type == Attr.attrType.qi && (root.Items[1] as NumericTreeViewItem).count < dm.k;
 
-            //범위 내 값이 0개인 값이 존재한다면 하위 노드 필요 없음
-            bool caseC = (root.Items[0] as NumericTreeViewItem).count == 0;
-            bool caseD = (root.Items[1] as NumericTreeViewItem).count == 0;
+            //민감 정보의 경우: 범위 내 값이 k개 미만인 값이 존재한다면 하위 노드 필요 없음
+            bool caseC = (dm.GetAttrList()[index] as Attr).type == Attr.attrType.sa && (root.Items[0] as NumericTreeViewItem).count < dm.l;
+            bool caseD = (dm.GetAttrList()[index] as Attr).type == Attr.attrType.sa && (root.Items[1] as NumericTreeViewItem).count < dm.l;
 
-            if (caseA || caseB || caseC || caseD)
+            //범위 내 값이 0개인 값이 존재한다면 하위 노드 필요 없음
+            bool caseE = (root.Items[0] as NumericTreeViewItem).count == 0;
+            bool caseF = (root.Items[1] as NumericTreeViewItem).count == 0;
+
+            if (caseA || caseB || caseC || caseD || caseE || caseF)
             {
                 root.Items.RemoveAt(1);
                 root.Items.RemoveAt(0);
@@ -451,5 +464,6 @@ namespace GP
             }
             
         }
+        
     }
 }

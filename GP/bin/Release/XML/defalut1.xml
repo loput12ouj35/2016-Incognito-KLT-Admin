@@ -5,12 +5,13 @@
 	<map>
 		<entry value="0" name="Private" />
 		<entry value="1" name="Self-emp-not-inc" />
-		<entry value="2" name="State-gov" />
+		<entry value="2" name="Local-gov" />
+		<entry value="3" name="State-gov" />
+		<entry value="4" name="Self-emp-inc" />
+		<entry value="5" name="Federal-gov" />
+		<entry value="6" name="Without-pay" />
 	</map>
 	<tree>
-		<node name="전체 데이터 범위" range="[0-2]">
-			<node name="새로운 범위" range="[0-1]" />
-			<node name="새로운 범위" range="[2-2]" />
-		</node>
+		<node name="전체 데이터 범위" range="[0-6]" />
 	</tree>
 </taxonomy>

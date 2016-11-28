@@ -12,11 +12,6 @@
 		<entry value="6" name="Without-pay" />
 	</map>
 	<tree>
-		<node name="전체 데이터 범위" range="[0-6]">
-			<node name="새로운 범위" range="[0-6]">
-				<node name="새로운 범위" range="[0-6]" />
-			</node>
-			<node name="새로운 범위" range="[0-6]" />
-		</node>
+		<node name="전체 데이터 범위" range="[0-6]" />
 	</tree>
 </taxonomy>
