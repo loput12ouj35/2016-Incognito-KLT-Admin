@@ -3,6 +3,9 @@
 <taxonomy>
 	<property type="numerical" />
 	<tree>
-		<node range="[1-99]" />
+		<node range="[1-100)">
+			<node range="[1-10)" />
+			<node range="[10-100)" />
+		</node>
 	</tree>
 </taxonomy>

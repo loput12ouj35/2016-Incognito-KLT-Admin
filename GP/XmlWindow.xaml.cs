@@ -365,7 +365,10 @@ namespace GP
         //자동 버튼 클릭
         private void buttonAuto_Click(object sender, RoutedEventArgs e)
         {
-            autoMakeTree();
+            AutoGenerator autoGeneratorDialog = new AutoGenerator();
+            
+            autoGeneratorDialog.Owner = this;
+            autoGeneratorDialog.Show();
         }
 
         //프리셋 버튼 클릭
@@ -400,58 +403,115 @@ namespace GP
         }
 
         //자동화 초기화 
-        private void autoMakeTree()
+        public void autoMakeTree(AutoGenerator.AutoType autoType, int autoDepth, bool rootRounding = true)
         {
             textBoxPath.Text = dm.GetAttrList()[index].name + ".xml";       //이름 변경
 
             //treeview 초기화
             treeView.Items.Add(new NumericTreeViewItem(list.Min(), list.Max(), null));
             treeView.Items.RemoveAt(0);
-
-            binaryMethod(4);
+            
+            switch (autoType)
+            {
+                case AutoGenerator.AutoType.dyn:
+                    dynamicMethod(autoDepth, rootRounding);
+                    break;
+                case AutoGenerator.AutoType.stt:
+                    staticMethod(autoDepth, rootRounding);
+                    break;
+                case AutoGenerator.AutoType.hyb:
+                    //to do
+                    break;
+            }
 
         }
-
-        //데이터 분포 고려
-        private void analzeData()
+        
+        //루트 라운딩
+        private void roundRoot()
         {
-            int minDigit = (int) Math.Floor(Math.Log10(list.Min())) + 1;
-            int maxDigit = (int) Math.Floor(Math.Log10(list.Max())) + 1;
+            bool minIsZero = list.Min() == 0;
+            bool maxIsZero = list.Max() == 0;
+
+            int minDigit = minIsZero ? 1 : (int)Math.Floor(Math.Log10(Math.Abs(list.Min()))) + 1;        //최소값의 자리수
+            int maxDigit = maxIsZero ? 1 : (int)Math.Floor(Math.Log10(Math.Abs(list.Max()))) + 1;        //최대값의 자리수
 
 
+            NumericTreeViewItem root = treeView.Items[0] as NumericTreeViewItem;
+
+            float tmpRootMin = minIsZero ? 0 : (float)Math.Pow(10, minDigit - 1);
+            int tmpMaxcoef = (int)(Math.Abs(list.Max()) / Math.Pow(10, maxDigit - 1)) + 1;
+            float tmpRootMax = maxIsZero ? 0 : (float) (tmpMaxcoef * Math.Pow(10, maxDigit - 1));
+
+            root.UpdateInfo(tmpRootMin, tmpRootMax, true, false);   //루트노드 업데이트
+        
+            //노드의 min, max 로드
+            textBoxMin.Text = root.min.ToString();
+            textBoxMax.Text = root.max.ToString();
         }
 
-        //절반 나누기
-        private void binaryMethod(int height)
+        //데이터 분포에 따른 절반 나누기 방법
+        private void dynamicMethod(int height, bool rounding = false)
         {
-            binaryAdd(height, treeView.Items[0] as NumericTreeViewItem, 0, list.Count - 1);
+            if (rounding)
+            {
+                roundRoot();
+            }
+
+            dynamicAdd(height, treeView.Items[0] as NumericTreeViewItem, 0, list.Count - 1);
             checkRange();
         }
 
-        //절반 나누기 recursive
-        private void binaryAdd(int height, NumericTreeViewItem root, int firstIndex, int lastIndex)
+        //데이터 분포에 따른 절반 나누기 recursive
+        private void dynamicAdd(int height, NumericTreeViewItem root, int firstIndex, int lastIndex)
         {
             root.Items.Add(new NumericTreeViewItem(0, 0, root) { IsExpanded = true });
             root.Items.Add(new NumericTreeViewItem(0, 0, root) { IsExpanded = true });
 
-            (root.Items[0] as NumericTreeViewItem).UpdateInfo(root.min, list[(firstIndex + lastIndex) / 2], root.includeMin, false);
-            (root.Items[1] as NumericTreeViewItem).UpdateInfo(list[(firstIndex + lastIndex) / 2], root.max, true, root.includeMax);
+            int midIndex = (firstIndex + lastIndex) / 2;        //중간 인덱스
+
+            //최소와 중간이 같은 경우, 중간 인덱스를 뒤로 옮긴다.
+            if (root.min == list[midIndex])
+            {
+                for(int i = midIndex; i < lastIndex; ++i)
+                {
+                    if (list[i] > list[midIndex])
+                    {
+                        midIndex = i;
+                        break;
+                    }
+                }
+            }
+
+            //최대와 중간이 같은 경우, 중간 인덱스를 뒤로 옮긴다.
+            else if (root.max == list[midIndex])
+            {
+                for (int i = midIndex; i > firstIndex; --i)
+                {
+                    if (list[i] < list[midIndex])
+                    {
+                        midIndex = i;
+                        break;
+                    }
+                }
+            }
+
+            (root.Items[0] as NumericTreeViewItem).UpdateInfo(root.min, list[midIndex], root.includeMin, false);
+            (root.Items[1] as NumericTreeViewItem).UpdateInfo(list[midIndex], root.max, true, root.includeMax);
+            
             root.IsExpanded = true;   //확장
 
 
             //준식별자의 경우: 범위 내 값이 k개 미만인 값이 존재한다면 하위 노드 필요 없음
             bool caseA = (dm.GetAttrList()[index] as Attr).type == Attr.attrType.qi && (root.Items[0] as NumericTreeViewItem).count < dm.k;
             bool caseB = (dm.GetAttrList()[index] as Attr).type == Attr.attrType.qi && (root.Items[1] as NumericTreeViewItem).count < dm.k;
-
-            //민감 정보의 경우: 범위 내 값이 k개 미만인 값이 존재한다면 하위 노드 필요 없음
-            bool caseC = (dm.GetAttrList()[index] as Attr).type == Attr.attrType.sa && (root.Items[0] as NumericTreeViewItem).count < dm.l;
-            bool caseD = (dm.GetAttrList()[index] as Attr).type == Attr.attrType.sa && (root.Items[1] as NumericTreeViewItem).count < dm.l;
+            
 
             //범위 내 값이 0개인 값이 존재한다면 하위 노드 필요 없음
-            bool caseE = (root.Items[0] as NumericTreeViewItem).count == 0;
-            bool caseF = (root.Items[1] as NumericTreeViewItem).count == 0;
+            bool caseC = (root.Items[0] as NumericTreeViewItem).count == 0;
+            bool caseD = (root.Items[1] as NumericTreeViewItem).count == 0;
+            
 
-            if (caseA || caseB || caseC || caseD || caseE || caseF)
+            if (caseA || caseB || caseC || caseD)
             {
                 root.Items.RemoveAt(1);
                 root.Items.RemoveAt(0);
@@ -459,11 +519,61 @@ namespace GP
 
             else if(height > 0)
             {
-                binaryAdd(height - 1, root.Items[0] as NumericTreeViewItem, firstIndex, (firstIndex + lastIndex) / 2);
-                binaryAdd(height - 1, root.Items[1] as NumericTreeViewItem, (firstIndex + lastIndex) / 2, lastIndex);
+                dynamicAdd(height - 1, root.Items[0] as NumericTreeViewItem, firstIndex, midIndex);
+                dynamicAdd(height - 1, root.Items[1] as NumericTreeViewItem, midIndex, lastIndex);
             }
             
         }
-        
+
+
+        //데이터 값에 따른 절반 나누기 방법
+        private void staticMethod(int height, bool rounding = false)
+        {
+            if (rounding)
+            {
+                roundRoot();
+            }
+
+            staticAdd(height, treeView.Items[0] as NumericTreeViewItem);
+            checkRange();
+        }
+
+        //데이터 값에 따른 절반 나누기 recursive
+        private void staticAdd(int height, NumericTreeViewItem root, bool isFloat = false)
+        {
+            root.Items.Add(new NumericTreeViewItem(0, 0, root) { IsExpanded = true });
+            root.Items.Add(new NumericTreeViewItem(0, 0, root) { IsExpanded = true });
+
+            float midValue = isFloat ? (root.min + root.max) / 2 : (int) (root.min + root.max) / 2;
+
+            (root.Items[0] as NumericTreeViewItem).UpdateInfo(root.min, midValue, root.includeMin, false);
+            (root.Items[1] as NumericTreeViewItem).UpdateInfo(midValue, root.max, true, root.includeMax);
+
+            root.IsExpanded = true;   //확장
+
+
+            //준식별자의 경우: 범위 내 값이 k개 미만인 값이 존재한다면 하위 노드 필요 없음
+            bool caseA = (dm.GetAttrList()[index] as Attr).type == Attr.attrType.qi && (root.Items[0] as NumericTreeViewItem).count < dm.k;
+            bool caseB = (dm.GetAttrList()[index] as Attr).type == Attr.attrType.qi && (root.Items[1] as NumericTreeViewItem).count < dm.k;
+
+
+            //범위 내 값이 0개인 값이 존재한다면 하위 노드 필요 없음
+            bool caseC = (root.Items[0] as NumericTreeViewItem).count == 0;
+            bool caseD = (root.Items[1] as NumericTreeViewItem).count == 0;
+
+
+            if (caseA || caseB || caseC || caseD)
+            {
+                root.Items.RemoveAt(1);
+                root.Items.RemoveAt(0);
+            }
+
+            else if (height > 0)
+            {
+                staticAdd(height - 1, root.Items[0] as NumericTreeViewItem);
+                staticAdd(height - 1, root.Items[1] as NumericTreeViewItem);
+            }
+
+        }
     }
 }

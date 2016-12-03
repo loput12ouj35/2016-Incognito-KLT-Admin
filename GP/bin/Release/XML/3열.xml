@@ -3,12 +3,12 @@
 <taxonomy>
 	<property type="numerical" />
 	<tree>
-		<node range="[13769-1484705]">
-			<node range="[13769-178421)">
-				<node range="[13769-117627)">
-					<node range="[13769-80058)">
-						<node range="[13769-46514)">
-							<node range="[13769-33727)" />
+		<node range="[10000-2000000)">
+			<node range="[10000-178421)">
+				<node range="[10000-117627)">
+					<node range="[10000-80058)">
+						<node range="[10000-46514)">
+							<node range="[10000-33727)" />
 							<node range="[33727-46514)" />
 						</node>
 						<node range="[46514-80058)">
@@ -50,7 +50,7 @@
 					</node>
 				</node>
 			</node>
-			<node range="[178421-1484705]">
+			<node range="[178421-2000000)">
 				<node range="[178421-237624)">
 					<node range="[178421-201122)">
 						<node range="[178421-189843)">
@@ -73,7 +73,7 @@
 						</node>
 					</node>
 				</node>
-				<node range="[237624-1484705]">
+				<node range="[237624-2000000)">
 					<node range="[237624-308205)">
 						<node range="[237624-267556)">
 							<node range="[237624-250630)" />
@@ -84,14 +84,14 @@
 							<node range="[285522-308205)" />
 						</node>
 					</node>
-					<node range="[308205-1484705]">
+					<node range="[308205-2000000)">
 						<node range="[308205-362747)">
 							<node range="[308205-334366)" />
 							<node range="[334366-362747)" />
 						</node>
-						<node range="[362747-1484705]">
+						<node range="[362747-2000000)">
 							<node range="[362747-413373)" />
-							<node range="[413373-1484705]" />
+							<node range="[413373-2000000)" />
 						</node>
 					</node>
 				</node>

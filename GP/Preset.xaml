@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GP"
         mc:Ignorable="d"
+        ResizeMode="CanMinimize"
         Title="프리셋" Height="300" Width="210">
     <Grid Background="AntiqueWhite">
         <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="209" Margin="10,10,0,0" VerticalAlignment="Top" Width="175" ItemsSource="{Binding}"/>

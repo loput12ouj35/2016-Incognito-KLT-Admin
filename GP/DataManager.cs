@@ -14,11 +14,15 @@ namespace GP
     {
         private static DataManager INSTANCE;
         
+        //일반 변수
         private int numberOfAttr;   //속성의 개수
         private readonly DataTable db;       //데이터를 저장하는 테이블
         private readonly List<Attr> attrList;    //속성을 저장하는 리스트
-        private string presetPath = "";      //프리셋 파일 주소
 
+        //통신용 변수
+        private string presetPath = "";      //프리셋 파일 주소 (통신용)
+
+        //k, l 값
         public int k = 2;
         public int l = 2;
 
@@ -248,6 +252,7 @@ namespace GP
             }
         }
 
+        //프리셋 저장 (통신)
         public void SavePresetPath(string path)
         {
             presetPath = path;
@@ -324,6 +329,7 @@ namespace GP
             return entryList;
         }
 
+        //통신용
         public string GetPresetPath()
         {
             return presetPath;

@@ -38,3 +38,5 @@ C:\Users\loput\OneDrive\문서\GitHub\GraduationProject\GP\obj\Release\XmlWindow
 C:\Users\loput\OneDrive\문서\GitHub\GraduationProject\GP\obj\Release\GP.g.resources
 C:\Users\loput\OneDrive\문서\GitHub\GraduationProject\GP\obj\Release\GP.Properties.Resources.resources
 C:\Users\loput\OneDrive\문서\GitHub\GraduationProject\GP\obj\Release\GP.csproj.GenerateResource.Cache
+C:\Users\loput\OneDrive\문서\GitHub\GraduationProject\GP\obj\Release\AutoGenerator.g.cs
+C:\Users\loput\OneDrive\문서\GitHub\GraduationProject\GP\obj\Release\AutoGenerator.baml

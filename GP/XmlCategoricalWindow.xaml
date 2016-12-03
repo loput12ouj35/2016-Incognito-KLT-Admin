@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GP"
         mc:Ignorable="d"
+        ResizeMode="CanMinimize"
         Title="Categorical 트리 편집" Height="512" Width="768"
         Closing="Window_Closing">
     <Grid Background="#FFE5E5E5">
