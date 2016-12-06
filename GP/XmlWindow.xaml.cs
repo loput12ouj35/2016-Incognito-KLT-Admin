@@ -410,17 +410,23 @@ namespace GP
             //treeview 초기화
             treeView.Items.Add(new NumericTreeViewItem(list.Min(), list.Max(), null));
             treeView.Items.RemoveAt(0);
-            
+
+            //root 라운딩
+            if (rootRounding)
+            {
+                roundRoot();
+            }
+
             switch (autoType)
             {
                 case AutoGenerator.AutoType.dyn:
-                    dynamicMethod(autoDepth, rootRounding);
+                    dynamicMethod(autoDepth);
                     break;
                 case AutoGenerator.AutoType.stt:
-                    staticMethod(autoDepth, rootRounding);
+                    staticMethod(autoDepth);
                     break;
                 case AutoGenerator.AutoType.hyb:
-                    //to do
+                    hybridMethod(autoDepth);
                     break;
             }
 
@@ -450,13 +456,8 @@ namespace GP
         }
 
         //데이터 분포에 따른 절반 나누기 방법
-        private void dynamicMethod(int height, bool rounding = false)
+        private void dynamicMethod(int height)
         {
-            if (rounding)
-            {
-                roundRoot();
-            }
-
             dynamicAdd(height, treeView.Items[0] as NumericTreeViewItem, 0, list.Count - 1);
             checkRange();
         }
@@ -527,13 +528,8 @@ namespace GP
 
 
         //데이터 값에 따른 절반 나누기 방법
-        private void staticMethod(int height, bool rounding = false)
+        private void staticMethod(int height)
         {
-            if (rounding)
-            {
-                roundRoot();
-            }
-
             staticAdd(height, treeView.Items[0] as NumericTreeViewItem);
             checkRange();
         }
@@ -544,7 +540,7 @@ namespace GP
             root.Items.Add(new NumericTreeViewItem(0, 0, root) { IsExpanded = true });
             root.Items.Add(new NumericTreeViewItem(0, 0, root) { IsExpanded = true });
 
-            float midValue = isFloat ? (root.min + root.max) / 2 : (int) (root.min + root.max) / 2;
+            float midValue = isFloat ? (root.min + root.max) / 2 : (int) ((root.min + root.max) / 2);
 
             (root.Items[0] as NumericTreeViewItem).UpdateInfo(root.min, midValue, root.includeMin, false);
             (root.Items[1] as NumericTreeViewItem).UpdateInfo(midValue, root.max, true, root.includeMax);
@@ -572,6 +568,70 @@ namespace GP
             {
                 staticAdd(height - 1, root.Items[0] as NumericTreeViewItem);
                 staticAdd(height - 1, root.Items[1] as NumericTreeViewItem);
+            }
+
+        }
+
+        
+        //데이터 값에 따르고 분포를 고려하는 절반 나누기 방법
+        private void hybridMethod(int height)
+        {
+            hybridAdd(height, treeView.Items[0] as NumericTreeViewItem);
+            checkRange();
+        }
+
+        //데이터 값에 따르고 분포를 고려하는 절반 나누기 recursive
+        private void hybridAdd(int height, NumericTreeViewItem root, bool isFloat = false)
+        {
+            root.Items.Add(new NumericTreeViewItem(0, 0, root) { IsExpanded = true });
+            root.Items.Add(new NumericTreeViewItem(0, 0, root) { IsExpanded = true });
+
+            float midValue = isFloat ? (root.min + root.max) / 2 : (int) ((root.min + root.max) / 2);
+            
+            (root.Items[0] as NumericTreeViewItem).UpdateInfo(root.min, midValue, root.includeMin, false);
+            (root.Items[1] as NumericTreeViewItem).UpdateInfo(midValue, root.max, true, root.includeMax);
+
+            //데이터 분포 체크
+            float dif = ((root.Items[0] as NumericTreeViewItem).count - (root.Items[1] as NumericTreeViewItem).count) / root.count;
+
+            if (dif > 0.3)
+            {
+                midValue = isFloat ? root.min + (root.max - root.min) / 3 : (int) (root.min + (root.max - root.min) / 3);
+                (root.Items[0] as NumericTreeViewItem).UpdateInfo(root.min, midValue, root.includeMin, false);
+                (root.Items[1] as NumericTreeViewItem).UpdateInfo(midValue, root.max, true, root.includeMax);
+                Console.WriteLine("aaa: leftleftleft");
+            }
+
+            else if (dif < -0.3)
+            {
+                midValue = isFloat ? root.max - (root.max - root.min) / 3 : (int) (root.max - (root.max - root.min) / 3);
+                (root.Items[0] as NumericTreeViewItem).UpdateInfo(root.min, midValue, root.includeMin, false);
+                (root.Items[1] as NumericTreeViewItem).UpdateInfo(midValue, root.max, true, root.includeMax);
+                Console.WriteLine("aaa: rightrightright");
+            }
+            
+            root.IsExpanded = true;   //확장
+            
+            //준식별자의 경우: 범위 내 값이 k개 미만인 값이 존재한다면 하위 노드 필요 없음
+            bool caseA = (dm.GetAttrList()[index] as Attr).type == Attr.attrType.qi && (root.Items[0] as NumericTreeViewItem).count < dm.k;
+            bool caseB = (dm.GetAttrList()[index] as Attr).type == Attr.attrType.qi && (root.Items[1] as NumericTreeViewItem).count < dm.k;
+
+
+            //범위 내 값이 0개인 값이 존재한다면 하위 노드 필요 없음
+            bool caseC = (root.Items[0] as NumericTreeViewItem).count == 0;
+            bool caseD = (root.Items[1] as NumericTreeViewItem).count == 0;
+
+
+            if (caseA || caseB || caseC || caseD)
+            {
+                root.Items.RemoveAt(1);
+                root.Items.RemoveAt(0);
+            }
+
+            else if (height > 0)
+            {
+                hybridAdd(height - 1, root.Items[0] as NumericTreeViewItem);
+                hybridAdd(height - 1, root.Items[1] as NumericTreeViewItem);
             }
 
         }

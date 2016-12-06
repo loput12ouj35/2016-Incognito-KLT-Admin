@@ -29,7 +29,7 @@ namespace GP
             InitializeComponent();
             
             radioButtonType0A.IsChecked = true;     //기본 값
-            autoDepth = 10;      //기본 값
+            autoDepth = 5;      //기본 값
             slider.Value = autoDepth;            
         }
 
