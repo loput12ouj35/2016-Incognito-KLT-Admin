@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Attribute Taxnomy Tree Configuration File.-->
+<taxonomy>
+	<property type="categorical" />
+	<map>
+		<entry value="0" name="Male" />
+		<entry value="1" name="Female" />
+	</map>
+	<tree>
+		<node name="전체 데이터 범위" range="[0-1]" />
+	</tree>
+</taxonomy>
