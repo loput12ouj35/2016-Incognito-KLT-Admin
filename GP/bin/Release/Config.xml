@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <!-- Anonymization Configuration File.-->
 <configuration>
-	<setting k="0" l="0" t="0" algo="incognito" />
+	<setting k="5" l="2" t="0" algo="incognito" />
 	<input filename="./modifiedAdultData.txt" />
 	<output filename="./modifiedAdultData.txt_output.txt" />
 	<log filename="./modifiedAdultData.txt_log.txt" />
 	<column>
-		<attr name="1열" index="0" type="attr" />
+		<attr name="Age" index="0" type="qi" path="./XML/Age.xml" />
 		<attr name="2열" index="1" type="attr" />
 		<attr name="3열" index="2" type="attr" />
 		<attr name="4열" index="3" type="attr" />

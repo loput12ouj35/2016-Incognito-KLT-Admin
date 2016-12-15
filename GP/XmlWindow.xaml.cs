@@ -33,8 +33,6 @@ namespace GP
             public readonly NumericTreeViewItem owner;        //부모노드
             public string range;    //xml 기록용
 
-            
-
             public NumericTreeViewItem(float min = 0, float max = 0, NumericTreeViewItem owner = null)
             {
                 UpdateInfo(min, max, true, true);
@@ -428,6 +426,9 @@ namespace GP
                 case AutoGenerator.AutoType.hyb:
                     hybridMethod(autoDepth);
                     break;
+                case AutoGenerator.AutoType.heu:
+                    heuristicMethod(autoDepth);
+                    break;
             }
 
         }
@@ -525,20 +526,26 @@ namespace GP
             }
             
         }
-
-
+        
         //데이터 값에 따른 절반 나누기 방법
         private void staticMethod(int height)
         {
-            staticAdd(height, treeView.Items[0] as NumericTreeViewItem);
+            staticAdd(height, treeView.Items[0] as NumericTreeViewItem, false);
+            checkRange();
+        }
+
+        //데이터 값에 따른 절반 나누기 + 데이터 개수 고려 방법
+        private void hybridMethod(int height)
+        {
+            staticAdd(height, treeView.Items[0] as NumericTreeViewItem, true);
             checkRange();
         }
 
         //데이터 값에 따른 절반 나누기 recursive
-        private void staticAdd(int height, NumericTreeViewItem root, bool isFloat = false)
+        private void staticAdd(int height, NumericTreeViewItem root, bool isHybrid, bool isFloat = false)
         {
             float midValue = isFloat ? (root.min + root.max) / 2 : (int) ((root.min + root.max) / 2);
-
+            
             if (root.min != midValue)
             {
                 root.Items.Add(new NumericTreeViewItem(0, 0, root) { IsExpanded = true });
@@ -549,43 +556,47 @@ namespace GP
 
                 root.IsExpanded = true;   //확장
 
+                bool hasChild = true;       //hybrid method에서, 자식이 있는지 삭제되었는지
 
-                //준식별자의 경우: 범위 내 값이 k개 미만인 값이 존재한다면 하위 노드 필요 없음
-                bool caseA = (dm.GetAttrList()[index] as Attr).type == Attr.attrType.qi && (root.Items[0] as NumericTreeViewItem).count < dm.k;
-                bool caseB = (dm.GetAttrList()[index] as Attr).type == Attr.attrType.qi && (root.Items[1] as NumericTreeViewItem).count < dm.k;
-
-
-                //범위 내 값이 0개인 값이 존재한다면 하위 노드 필요 없음
-                bool caseC = (root.Items[0] as NumericTreeViewItem).count == 0;
-                bool caseD = (root.Items[1] as NumericTreeViewItem).count == 0;
-
-
-                if (caseA || caseB || caseC || caseD)
+                if (isHybrid)
                 {
-                    root.Items.RemoveAt(1);
-                    root.Items.RemoveAt(0);
+                    //준식별자의 경우: 범위 내 값이 k개 미만인 값이 존재한다면 하위 노드 필요 없음
+                    bool caseA = (dm.GetAttrList()[index] as Attr).type == Attr.attrType.qi && (root.Items[0] as NumericTreeViewItem).count < dm.k;
+                    bool caseB = (dm.GetAttrList()[index] as Attr).type == Attr.attrType.qi && (root.Items[1] as NumericTreeViewItem).count < dm.k;
+
+
+                    //범위 내 값이 0개인 값이 존재한다면 하위 노드 필요 없음
+                    bool caseC = (root.Items[0] as NumericTreeViewItem).count == 0;
+                    bool caseD = (root.Items[1] as NumericTreeViewItem).count == 0;
+
+
+                    if (caseA || caseB || caseC || caseD)
+                    {
+                        root.Items.RemoveAt(1);
+                        root.Items.RemoveAt(0);
+                        hasChild = false;
+                    }
                 }
-
-                else if (height > 0)
+                
+                if (hasChild && height > 0)
                 {
-                    staticAdd(height - 1, root.Items[0] as NumericTreeViewItem);
-                    staticAdd(height - 1, root.Items[1] as NumericTreeViewItem);
+                    staticAdd(height - 1, root.Items[0] as NumericTreeViewItem, isHybrid);
+                    staticAdd(height - 1, root.Items[1] as NumericTreeViewItem, isHybrid);
                 }
 
             }
-
         }
 
         
         //데이터 값에 따르고 분포를 고려하는 절반 나누기 방법
-        private void hybridMethod(int height)
+        private void heuristicMethod(int height)
         {
-            hybridAdd(height, treeView.Items[0] as NumericTreeViewItem);
+            heuristicAdd(height, treeView.Items[0] as NumericTreeViewItem);
             checkRange();
         }
 
         //데이터 값에 따르고 분포를 고려하는 절반 나누기 recursive
-        private void hybridAdd(int height, NumericTreeViewItem root, bool isFloat = false)
+        private void heuristicAdd(int height, NumericTreeViewItem root, bool isFloat = false)
         {
             float midValue = isFloat ? (root.min + root.max) / 2 : (int)((root.min + root.max) / 2);
 
@@ -639,8 +650,8 @@ namespace GP
 
                 else if (height > 0)
                 {
-                    hybridAdd(height - 1, root.Items[0] as NumericTreeViewItem);
-                    hybridAdd(height - 1, root.Items[1] as NumericTreeViewItem);
+                    heuristicAdd(height - 1, root.Items[0] as NumericTreeViewItem);
+                    heuristicAdd(height - 1, root.Items[1] as NumericTreeViewItem);
                 }
             }
             

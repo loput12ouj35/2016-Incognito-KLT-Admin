@@ -10,16 +10,18 @@
     <Grid Background="#FFE5E5E5">
 
         <GroupBox x:Name="groupBox0A" Header="자동화 기법 종류" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top">
-            <Grid HorizontalAlignment="Left" Height="90" VerticalAlignment="Top" Width="170" Margin="0,0,-2,-12">
+            <Grid HorizontalAlignment="Left" Height="110" VerticalAlignment="Top" Width="170" Margin="0,0,-2,-12">
                 <RadioButton x:Name="radioButtonType0A" Content="분포 기준 (Dynamic)" HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Top" Tag="dyn" Checked="radioButtonTypeA_Checked"/>
                 <RadioButton x:Name="radioButtonType1A" Content="데이터 값 기준 (Static)" HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top" Tag="stt" Checked="radioButtonTypeA_Checked"/>
                 <RadioButton x:Name="radioButtonType2A" Content="하이브리드 (Hybrid)" HorizontalAlignment="Left" Margin="10,55,0,0" VerticalAlignment="Top" Tag="hyb" Checked="radioButtonTypeA_Checked"/>
+                <RadioButton x:Name="radioButtonType3A" Content="휴리스틱 (Heuristic)" HorizontalAlignment="Left" Margin="10,75,0,0" VerticalAlignment="Top" Tag="heu" Checked="radioButtonTypeA_Checked"/>
+
             </Grid>
         </GroupBox>
         <Button x:Name="buttonGenerateA" Content="자동생성" HorizontalAlignment="Left" Margin="10,232,0,0" VerticalAlignment="Top" Width="75" Click="buttonGenerateA_Click"/>
-        <Button x:Name="buttonCancelA" Content="취소" HorizontalAlignment="Left" Margin="110,232,0,0" VerticalAlignment="Top" Width="75" Click="buttonCancelA_Click"/>
-        <Slider x:Name="slider" HorizontalAlignment="Left" Margin="10,165,0,0" VerticalAlignment="Top" Width="175" ValueChanged="slider_ValueChanged" IsSnapToTickEnabled="True" TickFrequency="1" Minimum="1" Maximum="20"/>
-        <TextBlock x:Name="textBlockDepthA" HorizontalAlignment="Left" Margin="10,144,0,0" TextWrapping="Wrap" Text="트리 깊이 : " VerticalAlignment="Top"/>
+        <Button x:Name="buttonCancelA" Content="닫기" HorizontalAlignment="Left" Margin="110,232,0,0" VerticalAlignment="Top" Width="75" Click="buttonCancelA_Click"/>
+        <Slider x:Name="slider" HorizontalAlignment="Left" Margin="10,170,0,0" VerticalAlignment="Top" Width="175" ValueChanged="slider_ValueChanged" IsSnapToTickEnabled="True" TickFrequency="1" Minimum="1" Maximum="20"/>
+        <TextBlock x:Name="textBlockDepthA" HorizontalAlignment="Left" Margin="10,150,0,0" TextWrapping="Wrap" Text="트리 깊이 : " VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

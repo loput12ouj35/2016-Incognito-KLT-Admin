@@ -19,7 +19,7 @@ namespace GP
     /// </summary>
     public partial class AutoGenerator : Window
     {
-        public enum AutoType { dyn, stt, hyb }
+        public enum AutoType { dyn, stt, hyb, heu }
         
         private AutoType autoType;
         private int autoDepth;
@@ -48,6 +48,9 @@ namespace GP
                     break;
                 case "hyb":
                     autoType = AutoType.hyb;
+                    break;
+                case "heu":
+                    autoType = AutoType.heu;
                     break;
             }
         }

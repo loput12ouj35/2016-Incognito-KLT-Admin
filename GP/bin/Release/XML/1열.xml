@@ -4,107 +4,128 @@
 	<property type="numerical" />
 	<tree>
 		<node range="[10-100)">
-			<node range="[10-37)">
-				<node range="[10-28)">
-					<node range="[10-23)">
-						<node range="[10-20)">
-							<node range="[10-19)">
-								<node range="[10-18)" />
+			<node range="[10-55)">
+				<node range="[10-32)">
+					<node range="[10-21)">
+						<node range="[10-15)">
+							<node range="[10-12)">
+								<node range="[10-11)" />
+								<node range="[11-12)" />
+							</node>
+							<node range="[12-15)">
+								<node range="[12-13)" />
+								<node range="[13-15)">
+									<node range="[13-14)" />
+									<node range="[14-15)" />
+								</node>
+							</node>
+						</node>
+						<node range="[15-21)">
+							<node range="[15-18)">
+								<node range="[15-16)" />
+								<node range="[16-18)">
+									<node range="[16-17)" />
+									<node range="[17-18)" />
+								</node>
+							</node>
+							<node range="[18-21)">
 								<node range="[18-19)" />
+								<node range="[19-21)">
+									<node range="[19-20)" />
+									<node range="[20-21)" />
+								</node>
 							</node>
-							<node range="[19-20)" />
 						</node>
-						<node range="[20-23)">
-							<node range="[20-22)">
-								<node range="[20-21)" />
+					</node>
+					<node range="[21-32)">
+						<node range="[21-26)">
+							<node range="[21-23)">
 								<node range="[21-22)" />
+								<node range="[22-23)" />
 							</node>
-							<node range="[22-23)" />
+							<node range="[23-26)">
+								<node range="[23-24)" />
+								<node range="[24-26)">
+									<node range="[24-25)" />
+									<node range="[25-26)" />
+								</node>
+							</node>
 						</node>
-					</node>
-					<node range="[23-28)">
-						<node range="[23-25)">
-							<node range="[23-24)" />
-							<node range="[24-25)" />
-						</node>
-						<node range="[25-28)">
-							<node range="[25-27)">
-								<node range="[25-26)" />
+						<node range="[26-32)">
+							<node range="[26-29)">
 								<node range="[26-27)" />
+								<node range="[27-29)">
+									<node range="[27-28)" />
+									<node range="[28-29)" />
+								</node>
 							</node>
-							<node range="[27-28)" />
+							<node range="[29-32)">
+								<node range="[29-30)" />
+								<node range="[30-32)">
+									<node range="[30-31)" />
+									<node range="[31-32)" />
+								</node>
+							</node>
 						</node>
 					</node>
 				</node>
-				<node range="[28-37)">
-					<node range="[28-33)">
-						<node range="[28-30)">
-							<node range="[28-29)" />
-							<node range="[29-30)" />
-						</node>
-						<node range="[30-33)">
-							<node range="[30-31)" />
-							<node range="[31-33)">
-								<node range="[31-32)" />
+				<node range="[32-55)">
+					<node range="[32-43)">
+						<node range="[32-37)">
+							<node range="[32-34)">
 								<node range="[32-33)" />
+								<node range="[33-34)" />
+							</node>
+							<node range="[34-37)">
+								<node range="[34-35)" />
+								<node range="[35-37)">
+									<node range="[35-36)" />
+									<node range="[36-37)" />
+								</node>
 							</node>
 						</node>
-					</node>
-					<node range="[33-37)">
-						<node range="[33-35)">
-							<node range="[33-34)" />
-							<node range="[34-35)" />
-						</node>
-						<node range="[35-37)">
-							<node range="[35-36)" />
-							<node range="[36-37)" />
-						</node>
-					</node>
-				</node>
-			</node>
-			<node range="[37-100)">
-				<node range="[37-47)">
-					<node range="[37-42)">
-						<node range="[37-39)">
-							<node range="[37-38)" />
-							<node range="[38-39)" />
-						</node>
-						<node range="[39-42)">
-							<node range="[39-41)">
-								<node range="[39-40)" />
+						<node range="[37-43)">
+							<node range="[37-40)">
+								<node range="[37-38)" />
+								<node range="[38-40)">
+									<node range="[38-39)" />
+									<node range="[39-40)" />
+								</node>
+							</node>
+							<node range="[40-43)">
 								<node range="[40-41)" />
+								<node range="[41-43)">
+									<node range="[41-42)" />
+									<node range="[42-43)" />
+								</node>
 							</node>
-							<node range="[41-42)" />
 						</node>
 					</node>
-					<node range="[42-47)">
-						<node range="[42-45)">
-							<node range="[42-43)" />
-							<node range="[43-45)">
+					<node range="[43-55)">
+						<node range="[43-49)">
+							<node range="[43-46)">
 								<node range="[43-44)" />
-								<node range="[44-45)" />
+								<node range="[44-46)">
+									<node range="[44-45)" />
+									<node range="[45-46)" />
+								</node>
+							</node>
+							<node range="[46-49)">
+								<node range="[46-47)" />
+								<node range="[47-49)">
+									<node range="[47-48)" />
+									<node range="[48-49)" />
+								</node>
 							</node>
 						</node>
-						<node range="[45-47)">
-							<node range="[45-46)" />
-							<node range="[46-47)" />
-						</node>
-					</node>
-				</node>
-				<node range="[47-100)">
-					<node range="[47-55)">
-						<node range="[47-51)">
-							<node range="[47-49)">
-								<node range="[47-48)" />
-								<node range="[48-49)" />
-							</node>
-							<node range="[49-51)">
+						<node range="[49-55)">
+							<node range="[49-52)">
 								<node range="[49-50)" />
-								<node range="[50-51)" />
+								<node range="[50-52)">
+									<node range="[50-51)" />
+									<node range="[51-52)" />
+								</node>
 							</node>
-						</node>
-						<node range="[51-55)">
-							<node range="[51-52)" />
 							<node range="[52-55)">
 								<node range="[52-53)" />
 								<node range="[53-55)">
@@ -114,90 +135,135 @@
 							</node>
 						</node>
 					</node>
-					<node range="[55-100)">
+				</node>
+			</node>
+			<node range="[55-100)">
+				<node range="[55-77)">
+					<node range="[55-66)">
 						<node range="[55-60)">
 							<node range="[55-57)">
 								<node range="[55-56)" />
 								<node range="[56-57)" />
 							</node>
 							<node range="[57-60)">
-								<node range="[57-59)">
-									<node range="[57-58)" />
+								<node range="[57-58)" />
+								<node range="[58-60)">
 									<node range="[58-59)" />
+									<node range="[59-60)" />
 								</node>
-								<node range="[59-60)" />
 							</node>
 						</node>
-						<node range="[60-100)">
-							<node range="[60-65)">
-								<node range="[60-62)">
-									<node range="[60-61)" />
+						<node range="[60-66)">
+							<node range="[60-63)">
+								<node range="[60-61)" />
+								<node range="[61-63)">
 									<node range="[61-62)" />
-								</node>
-								<node range="[62-65)">
 									<node range="[62-63)" />
-									<node range="[63-65)">
-										<node range="[63-64)" />
-										<node range="[64-65)" />
-									</node>
 								</node>
 							</node>
-							<node range="[65-100)">
-								<node range="[65-69)">
-									<node range="[65-67)">
-										<node range="[65-66)" />
-										<node range="[66-67)" />
-									</node>
-									<node range="[67-69)">
-										<node range="[67-68)" />
-										<node range="[68-69)" />
-									</node>
+							<node range="[63-66)">
+								<node range="[63-64)" />
+								<node range="[64-66)">
+									<node range="[64-65)" />
+									<node range="[65-66)" />
 								</node>
-								<node range="[69-100)">
-									<node range="[69-74)">
-										<node range="[69-71)">
-											<node range="[69-70)" />
-											<node range="[70-71)" />
-										</node>
-										<node range="[71-74)">
-											<node range="[71-72)" />
-											<node range="[72-74)">
-												<node range="[72-73)" />
-												<node range="[73-74)" />
-											</node>
-										</node>
-									</node>
-									<node range="[74-100)">
-										<node range="[74-78)">
-											<node range="[74-75)" />
-											<node range="[75-78)">
-												<node range="[75-76)" />
-												<node range="[76-78)">
-													<node range="[76-77)" />
-													<node range="[77-78)" />
-												</node>
-											</node>
-										</node>
-										<node range="[78-100)">
-											<node range="[78-82)">
-												<node range="[78-80)">
-													<node range="[78-79)" />
-													<node range="[79-80)" />
-												</node>
-												<node range="[80-82)">
-													<node range="[80-81)" />
-													<node range="[81-82)" />
-												</node>
-											</node>
-											<node range="[82-100)">
-												<node range="[82-90)">
-													<node range="[82-84)" />
-													<node range="[84-90)" />
-												</node>
-												<node range="[90-100)" />
-											</node>
-										</node>
-									</node>
+							</node>
+						</node>
+					</node>
+					<node range="[66-77)">
+						<node range="[66-71)">
+							<node range="[66-68)">
+								<node range="[66-67)" />
+								<node range="[67-68)" />
+							</node>
+							<node range="[68-71)">
+								<node range="[68-69)" />
+								<node range="[69-71)">
+									<node range="[69-70)" />
+									<node range="[70-71)" />
+								</node>
+							</node>
+						</node>
+						<node range="[71-77)">
+							<node range="[71-74)">
+								<node range="[71-72)" />
+								<node range="[72-74)">
+									<node range="[72-73)" />
+									<node range="[73-74)" />
+								</node>
+							</node>
+							<node range="[74-77)">
+								<node range="[74-75)" />
+								<node range="[75-77)">
+									<node range="[75-76)" />
+									<node range="[76-77)" />
+								</node>
+							</node>
+						</node>
+					</node>
+				</node>
+				<node range="[77-100)">
+					<node range="[77-88)">
+						<node range="[77-82)">
+							<node range="[77-79)">
+								<node range="[77-78)" />
+								<node range="[78-79)" />
+							</node>
+							<node range="[79-82)">
+								<node range="[79-80)" />
+								<node range="[80-82)">
+									<node range="[80-81)" />
+									<node range="[81-82)" />
+								</node>
+							</node>
+						</node>
+						<node range="[82-88)">
+							<node range="[82-85)">
+								<node range="[82-83)" />
+								<node range="[83-85)">
+									<node range="[83-84)" />
+									<node range="[84-85)" />
+								</node>
+							</node>
+							<node range="[85-88)">
+								<node range="[85-86)" />
+								<node range="[86-88)">
+									<node range="[86-87)" />
+									<node range="[87-88)" />
+								</node>
+							</node>
+						</node>
+					</node>
+					<node range="[88-100)">
+						<node range="[88-94)">
+							<node range="[88-91)">
+								<node range="[88-89)" />
+								<node range="[89-91)">
+									<node range="[89-90)" />
+									<node range="[90-91)" />
+								</node>
+							</node>
+							<node range="[91-94)">
+								<node range="[91-92)" />
+								<node range="[92-94)">
+									<node range="[92-93)" />
+									<node range="[93-94)" />
+								</node>
+							</node>
+						</node>
+						<node range="[94-100)">
+							<node range="[94-97)">
+								<node range="[94-95)" />
+								<node range="[95-97)">
+									<node range="[95-96)" />
+									<node range="[96-97)" />
+								</node>
+							</node>
+							<node range="[97-100)">
+								<node range="[97-98)" />
+								<node range="[98-100)">
+									<node range="[98-99)" />
+									<node range="[99-100)" />
 								</node>
 							</node>
 						</node>
