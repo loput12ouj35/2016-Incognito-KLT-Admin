@@ -20,8 +20,9 @@
         </GroupBox>
         <Button x:Name="buttonGenerateA" Content="자동생성" HorizontalAlignment="Left" Margin="10,232,0,0" VerticalAlignment="Top" Width="75" Click="buttonGenerateA_Click"/>
         <Button x:Name="buttonCancelA" Content="닫기" HorizontalAlignment="Left" Margin="110,232,0,0" VerticalAlignment="Top" Width="75" Click="buttonCancelA_Click"/>
-        <Slider x:Name="slider" HorizontalAlignment="Left" Margin="10,170,0,0" VerticalAlignment="Top" Width="175" ValueChanged="slider_ValueChanged" IsSnapToTickEnabled="True" TickFrequency="1" Minimum="1" Maximum="20"/>
-        <TextBlock x:Name="textBlockDepthA" HorizontalAlignment="Left" Margin="10,150,0,0" TextWrapping="Wrap" Text="트리 깊이 : " VerticalAlignment="Top"/>
+        <Slider x:Name="slider" HorizontalAlignment="Left" Margin="10,160,0,0" VerticalAlignment="Top" Width="175" ValueChanged="slider_ValueChanged" IsSnapToTickEnabled="True" TickFrequency="1" Minimum="0" Maximum="19"/>
+        <TextBlock x:Name="textBlockDepthA" HorizontalAlignment="Left" Margin="10,140,0,0" TextWrapping="Wrap" Text="트리 깊이 : " VerticalAlignment="Top"/>
+        <CheckBox x:Name="checkBoxA" Content="최상위 범위 반올림" HorizontalAlignment="Left" Margin="10,190,0,0" VerticalAlignment="Top" IsChecked="True"/>
 
     </Grid>
 </Window>

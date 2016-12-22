@@ -66,7 +66,7 @@ namespace GP
 
         private void buttonGenerateA_Click(object sender, RoutedEventArgs e)
         {
-            (Owner as XmlWindow).autoMakeTree(autoType, autoDepth);
+            (Owner as XmlWindow).autoMakeTree(autoType, autoDepth - 1, (bool) checkBoxA.IsChecked);
                 
         }
 

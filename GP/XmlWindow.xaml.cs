@@ -406,7 +406,13 @@ namespace GP
             textBoxPath.Text = dm.GetAttrList()[index].name + ".xml";       //이름 변경
 
             //treeview 초기화
-            treeView.Items.Add(new NumericTreeViewItem(list.Min(), list.Max(), null));
+            float tmpMin = (treeView.Items[0] as NumericTreeViewItem).min;
+            float tmpMax = (treeView.Items[0] as NumericTreeViewItem).max;
+
+            tmpMin = tmpMin > list.Min() ? list.Min() : tmpMin;
+            tmpMax = tmpMax < list.Max() ? list.Max() : tmpMax;
+
+            treeView.Items.Add(new NumericTreeViewItem(tmpMin, tmpMax, null));
             treeView.Items.RemoveAt(0);
 
             //root 라운딩
@@ -415,21 +421,25 @@ namespace GP
                 roundRoot();
             }
 
-            switch (autoType)
+            if(autoDepth >= 0)
             {
-                case AutoGenerator.AutoType.dyn:
-                    dynamicMethod(autoDepth);
-                    break;
-                case AutoGenerator.AutoType.stt:
-                    staticMethod(autoDepth);
-                    break;
-                case AutoGenerator.AutoType.hyb:
-                    hybridMethod(autoDepth);
-                    break;
-                case AutoGenerator.AutoType.heu:
-                    heuristicMethod(autoDepth);
-                    break;
+                switch (autoType)
+                {
+                    case AutoGenerator.AutoType.dyn:
+                        dynamicMethod(autoDepth);
+                        break;
+                    case AutoGenerator.AutoType.stt:
+                        staticMethod(autoDepth, rootRounding);
+                        break;
+                    case AutoGenerator.AutoType.hyb:
+                        hybridMethod(autoDepth);
+                        break;
+                    case AutoGenerator.AutoType.heu:
+                        heuristicMethod(autoDepth);
+                        break;
+                }
             }
+
 
         }
         
@@ -526,11 +536,37 @@ namespace GP
             }
             
         }
-        
+
         //데이터 값에 따른 절반 나누기 방법
-        private void staticMethod(int height)
+        int maxDepth;       //perfect binary를 보장하는 깊이
+        private void staticMethod(int height, bool rootRounding = true)
         {
+            maxDepth = -1;
+
             staticAdd(height, treeView.Items[0] as NumericTreeViewItem, false);
+
+            //perfect binary가 아닌 경우 재생성
+            if(maxDepth != -1)
+            {
+                //treeview 초기화
+                float tmpMin = (treeView.Items[0] as NumericTreeViewItem).min;
+                float tmpMax = (treeView.Items[0] as NumericTreeViewItem).max;
+
+                tmpMin = tmpMin > list.Min() ? list.Min() : tmpMin;
+                tmpMax = tmpMax < list.Max() ? list.Max() : tmpMax;
+
+                treeView.Items.Add(new NumericTreeViewItem(tmpMin, tmpMax, null));
+                treeView.Items.RemoveAt(0);
+
+                //root 라운딩
+                if (rootRounding)
+                {
+                    roundRoot();
+                }
+
+                staticAdd(height - maxDepth - 1, treeView.Items[0] as NumericTreeViewItem, false);
+            }
+           
             checkRange();
         }
 
@@ -540,7 +576,7 @@ namespace GP
             staticAdd(height, treeView.Items[0] as NumericTreeViewItem, true);
             checkRange();
         }
-
+        
         //데이터 값에 따른 절반 나누기 recursive
         private void staticAdd(int height, NumericTreeViewItem root, bool isHybrid, bool isFloat = false)
         {
@@ -584,6 +620,11 @@ namespace GP
                     staticAdd(height - 1, root.Items[1] as NumericTreeViewItem, isHybrid);
                 }
 
+            }
+
+            else
+            {
+                maxDepth = maxDepth > height ? maxDepth : height;       //perfect binary를 벗어나는 height를 저장
             }
         }
 
